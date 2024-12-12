@@ -1,15 +1,20 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import HomeScreen from './(tabs)/home';
+import { Button } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const Drawer = createDrawerNavigator();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -29,10 +34,13 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={HomeScreen} options={{
+          headerRight: () => {
+            return <Icon name="plus" onPress={() => {console.log("test")}} />;
+          }
+        }}/>
+      </Drawer.Navigator>
       <StatusBar style="auto" />
     </ThemeProvider>
   );
