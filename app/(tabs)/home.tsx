@@ -3,9 +3,12 @@ import { useSelectedDate } from '@/hooks/useSelectedDate';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
+import * as SQLite from 'expo-sqlite';
 
 
 export default function HomeScreen() {
+    const db = SQLite.useSQLiteContext()
+
     const {incrementDate, decrementDate} = useSelectedDate();
 
     return (
