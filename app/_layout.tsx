@@ -67,14 +67,11 @@ async function migrateDbIfNeeded(db: SQLiteDatabase) {
   if (user_version === 0) {
     await db.execAsync(`
 PRAGMA journal_mode = 'wal';
-CREATE TABLE excersises (id INTEGER PRIMARY KEY NOT NULL, value TEXT NOT NULL, intValue INTEGER);
+CREATE TABLE exercise_days (id INTEGER PRIMARY KEY NOT NULL, date TEXT NOT NULL UNIQUE, wasActive INTEGER);
 `);
-    await db.runAsync('INSERT INTO todos (value, intValue) VALUES (?, ?)', 'hello', 1);
-    await db.runAsync('INSERT INTO todos (value, intValue) VALUES (?, ?)', 'world', 2);
+    await db.runAsync('INSERT INTO exercise_days (date, wasActive) VALUES (?, ?)', '2024-12-13', 1);
+    await db.runAsync('INSERT INTO exercise_days (date, wasActive) VALUES (?, ?)', '2024-12-12', 0);
     user_version = 1;
   }
-  // if (currentDbVersion === 1) {
-  //   Add more migrations
-  // }
   await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);
 }

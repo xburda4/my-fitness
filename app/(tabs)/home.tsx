@@ -9,7 +9,9 @@ import * as SQLite from 'expo-sqlite';
 export default function HomeScreen() {
     const db = SQLite.useSQLiteContext()
 
-    const {incrementDate, decrementDate} = useSelectedDate();
+    const {selectedDate, incrementDate, decrementDate} = useSelectedDate();
+
+    const res = await db.runAsync('SELECT wasActive FROM exercise_days WHERE date = (?)', `${selectedDate.getFullYear()}-${selectedDate.getUTCMonth()}-${selectedDate.getDate()}`)
 
     return (
         <GestureRecognizer 
