@@ -4,11 +4,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import HomeScreen from './(tabs)/home';
-import { Button } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { SQLiteProvider, type SQLiteDatabase } from 'expo-sqlite';
 
@@ -40,8 +39,8 @@ export default function RootLayout() {
         <Drawer.Navigator>
           <Drawer.Screen name="Home" component={HomeScreen} options={{
             headerRight: () => {
-              return <Icon name="plus" onPress={() => {console.log("test")}} />;
-            }
+              return <Icon name="add" onPress={() => {console.log("test")}} />;
+            },
           }}/>
         </Drawer.Navigator>
         <StatusBar style="auto" />

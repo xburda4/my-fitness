@@ -3,21 +3,22 @@ import { Icon } from 'react-native-elements';
 import { useSelectedDate } from '@/hooks/useSelectedDate';
 
 type HomeScreenProps = {
-    selDate: Date,
+    selectedDate: Date,
+    onLeftButtonPress: () => void,
+    onRightButtonPress: () => void,
 }
 
-export default function DaySelectionBar() {
+export default function DaySelectionBar(props: HomeScreenProps) {
     let dateString = 'Today'
-    const {selectedDate, incrementDate, decrementDate} = useSelectedDate()
     
-    if (selectedDate.toDateString() !== (new Date()).toDateString()) {
-        dateString = selectedDate.toDateString();
+    if (props.selectedDate.toDateString() !== (new Date()).toDateString()) {
+        dateString = props.selectedDate.toDateString();
     }
 
     return (<View style={styles.container}>
-        <Icon style={styles.icon} onPress={decrementDate} name='leftarrow'/>
+        <Icon style={styles.icon} onPress={props.onLeftButtonPress} name='arrow-back'/>
         <Text style={styles.centerText}>{dateString}</Text>
-        <Icon style={styles.icon} onPress={incrementDate} name='rightarrow'/>
+        <Icon style={styles.icon} onPress={props.onRightButtonPress} name='arrow-forward'/>
     </View>);
 }
 
